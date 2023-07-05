@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Hello Security!</title>
+</head>
+<body>
+    <h1>Hello Security!</h1>
+    <span th:text="#{login.form.span.remember-me}"></span>
+    <h6>hasRole:</h6>
+	<ul>
+		<li sec:authorize="hasRole('ROLE_USER')">[ROLE_USER]</li>
+		<li sec:authorize="hasRole('ROLE_STAFF')">[ROLE_STAFF]</li>
+		<li sec:authorize="hasRole('ROLE_ADMIN')">[ROLE_ADMIN]</li>
+	</ul>
+	<dl>
+		<dt>name:</dt>
+		<dd sec:authentication="name" />
+		<dt>principal:</dt>
+		<dd sec:authentication="principal" />
+		<dt>credentials:</dt>
+		<dd sec:authentication="credentials" />
+		<dt>authorities:</dt>
+		<dd sec:authentication="authorities" />
+		<dt>details:</dt>
+		<dd sec:authentication="details" />
+		<dt>details.remoteAddress:</dt>
+		<dd sec:authentication="details.remoteAddress" />
+		<dt>details.sessionId:</dt>
+		<dd sec:authentication="details.sessionId" />
+	</dl>
+    <ul>
+    	<li><a id="message" th:href="@{/message}">message</a></li>
+    	<li><a id="user" th:href="@{/user}">user</a></li>
+    	<li><a id="admin" th:href="@{/admin}">admin</a></li>
+    	<li><a id="logout" th:href="@{/logout}">Log Out</a></li>
+    </ul>
+    <form th:action="@{/logout}" method="post">
+    	<button type="submit">Logout</button>
+    </form>
+</body>
+</html>
