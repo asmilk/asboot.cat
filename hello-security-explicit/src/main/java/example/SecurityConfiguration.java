@@ -28,7 +28,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.Customizer;
+//import org.springframework.security.config.Customizer;
 
 /**
  * An example of explicitly configuring Spring Security with the defaults.
@@ -52,6 +52,8 @@ public class SecurityConfiguration {
 				formLogin.loginPage("/login"))
 			.rememberMe(rememberMe -> 
 				rememberMe.tokenValiditySeconds(60))
+			.exceptionHandling(exceptionHandling ->
+				exceptionHandling.accessDeniedPage("/error/access-denied"))
 //			.csrf(csrf -> 
 //				csrf.disable())
 //			.logout(logout->

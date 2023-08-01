@@ -26,7 +26,9 @@
 					</c:if>
 				</div>
 			</c:if> -->
-			<span class="exception" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+			<span class="exception"
+				th:if="${session.SPRING_SECURITY_LAST_EXCEPTION}"
+				th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
 			<!-- the configured LogoutConfigurer#logoutSuccessUrl is /login?logout and contains the query param logout -->
 			<div th:if="${param.logout}">You have been logged out.</div>
 			<p>
