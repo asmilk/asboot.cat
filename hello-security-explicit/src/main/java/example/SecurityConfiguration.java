@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.config.Customizer;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
  * An example of explicitly configuring Spring Security with the defaults.
@@ -54,6 +55,13 @@ public class SecurityConfiguration {
 				rememberMe.tokenValiditySeconds(60))
 			.exceptionHandling(exceptionHandling ->
 				exceptionHandling.accessDeniedPage("/error/access-denied"))
+			.sessionManagement(sessionManagement ->
+				sessionManagement.sessionConcurrency(concurrency -> 
+					concurrency
+						.maximumSessions(1)
+						.maxSessionsPreventsLogin(true)
+						.expiredUrl("/login?expired"))
+					)
 //			.csrf(csrf -> 
 //				csrf.disable())
 //			.logout(logout->
@@ -95,6 +103,11 @@ public class SecurityConfiguration {
 		DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 		expressionHandler.setRoleHierarchy(roleHierarchy);
 		return expressionHandler;
+	}
+
+	@Bean
+	HttpSessionEventPublisher httpSessionEventPublisher() {
+		return new HttpSessionEventPublisher();
 	}
 
 }
